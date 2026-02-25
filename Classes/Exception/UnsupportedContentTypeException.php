@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace WEBcoast\Migrator\Exception;
 
-
-class SkipFieldException extends \Exception {}
+class UnsupportedContentTypeException extends \Exception {}

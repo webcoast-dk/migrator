@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 
-namespace WEBcoast\DceToContentblocks\Update;
+namespace WEBcoast\Migrator\Update;
 
 
 use Doctrine\DBAL\ArrayParameterType;
@@ -14,12 +14,12 @@ use TYPO3\CMS\Install\Attribute\UpgradeWizard;
 use TYPO3\CMS\Install\Updates\DatabaseUpdatedPrerequisite;
 use TYPO3\CMS\Install\Updates\RepeatableInterface;
 use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
-use WEBcoast\DceToContentblocks\Utility\UpgradeUtility;
+use WEBcoast\Migrator\Service\UpgradeService;
 
 #[UpgradeWizard('dce-to-contentblocks-content-element-upgrade')]
 readonly class ContentElementUpgrade implements UpgradeWizardInterface, RepeatableInterface
 {
-    public function __construct(protected RecordDataMigratorFactory $recordDataMigratorFactory, protected UpgradeUtility $upgradeUtility) {}
+    public function __construct(protected RecordDataMigratorFactory $recordDataMigratorFactory, protected UpgradeService $upgradeUtility) {}
 
     public function getTitle(): string
     {

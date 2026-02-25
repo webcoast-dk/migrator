@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 
-namespace WEBcoast\DceToContentblocks\Update;
+namespace WEBcoast\Migrator\Update;
 
 
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
@@ -12,7 +12,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class RecordDataMigratorFactory
 {
     public function __construct(
-        #[Autowire(service: 'webcoast.dce_to_contentblocks.record_data_migrator_collection')]
+        #[Autowire(service: 'webcoast.migrator.record_data_migrator_collection')]
         protected readonly RecordDataMigratorCollection $migratorCollection
     ) {}
 

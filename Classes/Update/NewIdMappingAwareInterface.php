@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 
-namespace WEBcoast\DceToContentblocks\Update;
+namespace WEBcoast\Migrator\Update;
 
 
 interface NewIdMappingAwareInterface

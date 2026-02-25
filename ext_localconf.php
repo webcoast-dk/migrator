@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use WEBcoast\DceToContentblocks\Hooks\CommandMapHook;
+use WEBcoast\Migrator\Hooks\CommandMapHook;
 
 if (!defined('TYPO3')) {
     die('Access denied.');

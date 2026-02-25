@@ -4,6 +4,6 @@ services:
         autoconfigure: true
         public: false
 
-    WEBcoast\DceToContentblocks\:
+    WEBcoast\Migrator\:
         resource: '../Classes/'
-        exclude: []
+        exclude: [ ]

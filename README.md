@@ -21,7 +21,7 @@ Run this command and select the DCE you would like to migrate and in which exten
 Write custom RecordDataMigrators to migrate existing DCE elements to the newly created content blocks.
 
 ```php
-#[AutoconfigureTag('webcoast.dce_to_contentblocks.record_data_migrator')]
+#[AutoconfigureTag('webcoast.migrator.record_data_migrator')]
 #[SourceContentType('dce_dceuid...')] // TODO: set source content type
 #[SourceContentType('dce_dceuid...')] // One migrator can have multipe source content types
 class ...Migrator extends RecordDataMigrator

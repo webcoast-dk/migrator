@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 
-namespace WEBcoast\DceToContentblocks\Hooks;
+namespace WEBcoast\Migrator\Hooks;
 
 
 use TYPO3\CMS\Core\DataHandling\DataHandler;

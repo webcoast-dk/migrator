@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 
-namespace WEBcoast\DceToContentblocks\Update;
+namespace WEBcoast\Migrator\Update;
 
 use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
 use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
@@ -11,7 +11,7 @@ use TYPO3\CMS\Core\Resource\File;
 use TYPO3\CMS\Core\Resource\FileReference;
 use TYPO3\CMS\Core\Utility\StringUtility;
 
-#[AutoconfigureTag('webcoast.dce_to_contentblocks.record_data_migrator')]
+#[AutoconfigureTag('webcoast.migrator.record_data_migrator')]
 #[Autoconfigure(public: true, shared: false)]
 abstract class RecordDataMigrator
 {
@@ -78,18 +78,6 @@ abstract class RecordDataMigrator
     protected function move(int|string $recordUid, array|int|string $destination, string $table = 'tt_content'): void
     {
         $this->commandMap[$table][$recordUid]['move'] = $destination;
-    }
-
-    protected function moveIntoContainer(int|string $recordUid, int|string $containerId, int $colPos, null|int|string $after = null): void
-    {
-        $this->move($recordUid, [
-            'update' => [
-                'tx_container_parent' => $containerId,
-                'colPos' => $colPos,
-            ],
-            'action' => 'paste',
-            'target' => $after ? '-' . $after : $containerId,
-        ]);
     }
 
     protected function localize(int $recordUid, int $languageId, string $table = 'tt_content'): void

@@ -1,5 +1,5 @@
 {
-    "name": "webcoast/dce-to-contentblocks",
+    "name": "webcoast/migrator",
     "description": "Migration tool to convert DCE elements to content-blocks",
     "type": "typo3-cms-extension",
     "title": "DCE to Content Blocks",
@@ -12,19 +12,19 @@
     "license": "GPL-3.0-or-later",
     "extra": {
         "typo3/cms": {
-            "extension-key": "dce_to_contentblocks"
+            "extension-key": "migrator"
         },
         "branch-alias": {
             "dev-main": "1.0.x-dev"
         }
     },
     "require": {
-        "friendsoftypo3/content-blocks": "^1.1",
-        "typo3/cms-core": "^13.4"
+        "typo3/cms-core": "^13.4",
+        "symfony/console": "^6.4 || ^7.4"
     },
     "autoload": {
         "psr-4": {
-            "WEBcoast\\DceToContentblocks\\": "Classes/"
+            "WEBcoast\\Migrator\\": "Classes/"
         }
     }
 }

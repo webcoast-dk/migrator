@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace WEBcoast\DceToContentblocks\Utility;
+namespace WEBcoast\Migrator\Service;
 
 use Doctrine\DBAL\Result;
 use Psr\Log\LoggerAwareInterface;
@@ -23,11 +23,11 @@ use TYPO3\CMS\Core\Schema\Capability\TcaSchemaCapability;
 use TYPO3\CMS\Core\Schema\TcaSchemaFactory;
 use TYPO3\CMS\Core\Service\FlexFormService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use WEBcoast\DceToContentblocks\Repository\DceRepository;
-use WEBcoast\DceToContentblocks\Update\NewIdMappingAwareInterface;
-use WEBcoast\DceToContentblocks\Update\RecordDataMigratorFactory;
+use WEBcoast\Migrator\Configuration\ContentTypeProviderCollection;
+use WEBcoast\Migrator\Update\NewIdMappingAwareInterface;
+use WEBcoast\Migrator\Update\RecordDataMigratorFactory;
 
-class UpgradeUtility implements LoggerAwareInterface
+class UpgradeService implements LoggerAwareInterface
 {
     use LoggerAwareTrait;
 
@@ -44,7 +44,7 @@ class UpgradeUtility implements LoggerAwareInterface
     public function __construct(
         ConnectionPool $connectionPool,
         protected RecordDataMigratorFactory $recordDataMigratorFactory,
-        protected DceRepository $dceRepository,
+        protected ContentTypeProviderCollection $contentTypeProviders,
         protected FlexFormService $flexFormService,
         protected TcaSchemaFactory $tcaSchemaFactory,
         protected LanguageServiceFactory $languageServiceFactory
