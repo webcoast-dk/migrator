@@ -31,7 +31,9 @@ interface ContentTypeProviderInterface
      */
     public function getConfiguration(string $contentType): array;
 
-    public function getTemplate(string $contentType): ?string;
+    public function getFrontendTemplate(string $contentType): ?string;
+
+    public function getBackendPreviewTemplate(string $contentType): ?string;
 
     public function getIcon(string $contentType): ?string;
 }
