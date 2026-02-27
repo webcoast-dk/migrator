@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace WEBcoast\Migrator\Configuration;
+namespace WEBcoast\Migrator\Provider;
 
 use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 

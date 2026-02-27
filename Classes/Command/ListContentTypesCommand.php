@@ -11,7 +11,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Contracts\Service\Attribute\Required;
-use WEBcoast\Migrator\Configuration\ContentTypeProviderCollection;
+use WEBcoast\Migrator\Provider\ContentTypeProviderCollection;
 use WEBcoast\Migrator\Exception\UnknownProviderException;
 
 #[AsCommand(name: 'migrator:content-types:list', description: 'Lists all content types for a given provider')]

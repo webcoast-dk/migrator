@@ -14,7 +14,7 @@ use TYPO3\CMS\Core\Service\FlexFormService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use WEBcoast\Migrator\Builder\ContentTypeBuilderInterface;
 use WEBcoast\Migrator\Builder\InteractiveBuilderInterface;
-use WEBcoast\Migrator\Configuration\ContentTypeProviderCollection;
+use WEBcoast\Migrator\Provider\ContentTypeProviderCollection;
 
 readonly class MigrationService
 {

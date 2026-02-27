@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace WEBcoast\Migrator\Builder;
 
 use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
-use WEBcoast\Migrator\Configuration\ContentTypeProviderInterface;
+use WEBcoast\Migrator\Provider\ContentTypeProviderInterface;
 
 #[AutoconfigureTag('webcoast.migrator.content_type_builder')]
 interface ContentTypeBuilderInterface

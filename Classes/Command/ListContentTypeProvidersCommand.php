@@ -10,8 +10,8 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Contracts\Service\Attribute\Required;
-use WEBcoast\Migrator\Configuration\ContentTypeProviderCollection;
-use WEBcoast\Migrator\Configuration\ContentTypeProviderInterface;
+use WEBcoast\Migrator\Provider\ContentTypeProviderCollection;
+use WEBcoast\Migrator\Provider\ContentTypeProviderInterface;
 
 #[AsCommand(name: 'migrator:provider:list', description: 'Lists all available content type providers')]
 class ListContentTypeProvidersCommand extends Command

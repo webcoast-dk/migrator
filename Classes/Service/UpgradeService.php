@@ -23,7 +23,7 @@ use TYPO3\CMS\Core\Schema\Capability\TcaSchemaCapability;
 use TYPO3\CMS\Core\Schema\TcaSchemaFactory;
 use TYPO3\CMS\Core\Service\FlexFormService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use WEBcoast\Migrator\Configuration\ContentTypeProviderCollection;
+use WEBcoast\Migrator\Provider\ContentTypeProviderCollection;
 use WEBcoast\Migrator\Update\NewIdMappingAwareInterface;
 use WEBcoast\Migrator\Update\RecordDataMigratorFactory;
 
