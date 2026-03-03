@@ -42,7 +42,11 @@ class MigratorCollectionCompilerPass implements CompilerPassInterface
             foreach ($reflection->getAttributes(SourceContentType::class) as $attribute) {
                 /** @var SourceContentType $instance */
                 $instance = $attribute->newInstance();
-                $mapping[$instance->contentType] = $className;
+                if (isset($mapping[$instance->contentTypeIdentifier])) {
+                    // This means that there are two migrators for the same content type, which is not allowed. This is a configuration error and should be fixed by the developer.
+                    throw new \RuntimeException(sprintf('Conflicting migrators found for content type "%s". Migrator classes "%s" and "%s" want to migrate have the same content type.', $instance->contentTypeIdentifier, $mapping[$instance->contentTypeIdentifier]->getMigratorClass(), $className), 1772441135);
+                }
+                $mapping[$instance->contentTypeIdentifier] = sprintf('%s:%s:%s', $instance->providerIdentifier, $instance->contentTypeIdentifier, $className);
             }
         }
 

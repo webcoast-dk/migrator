@@ -9,6 +9,7 @@ namespace WEBcoast\Migrator\Attribute;
 readonly class SourceContentType
 {
     public function __construct(
-        public string $contentType
+        public string $providerIdentifier,
+        public string $contentTypeIdentifier
     ) {}
 }

@@ -16,19 +16,19 @@ use TYPO3\CMS\Install\Updates\RepeatableInterface;
 use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
 use WEBcoast\Migrator\Service\UpgradeService;
 
-#[UpgradeWizard('dce-to-contentblocks-content-element-upgrade')]
+#[UpgradeWizard('migrator-content-element-upgrade')]
 readonly class ContentElementUpgrade implements UpgradeWizardInterface, RepeatableInterface
 {
-    public function __construct(protected RecordDataMigratorFactory $recordDataMigratorFactory, protected UpgradeService $upgradeUtility) {}
+    public function __construct(protected RecordDataMigratorFactory $recordDataMigratorFactory, protected UpgradeService $upgradeService) {}
 
     public function getTitle(): string
     {
-        return 'DCE to content-blocks';
+        return 'Migrator: Record migration';
     }
 
     public function getDescription(): string
     {
-        return 'Migrates all DCE based content elements using custom data migration classes';
+        return 'Migrates all content elements with the help of registered RecordDataMigrators.';
     }
 
     public function executeUpdate(): bool
@@ -56,7 +56,7 @@ readonly class ContentElementUpgrade implements UpgradeWizardInterface, Repeatab
 
             $result = $queryBuilder->executeQuery();
 
-            $this->upgradeUtility->migrateContentElements($result);
+            $this->upgradeService->migrateContentElements($result);
         }
 
         return true;
