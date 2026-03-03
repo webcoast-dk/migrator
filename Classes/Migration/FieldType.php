@@ -25,8 +25,8 @@ enum FieldType: string
     case PASSWORD = 'password';
     case RADIO = 'radio';
     case SELECT = 'select';
-    case TEXT = 'text';
-    case TEXTAREA = 'textarea';
+    case TEXT = 'input';
+    case TEXTAREA = 'text';
     case TREE = 'tree';
     case SLUG = 'slug';
     case UUID = 'uuid';
