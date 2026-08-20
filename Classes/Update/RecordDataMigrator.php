@@ -64,6 +64,14 @@ abstract class RecordDataMigrator
         ]), $fileReference->getUid());
     }
 
+    protected function moveFileReference(FileReference $fileReference, string $tableName, string $fieldName, array $metaData = [])
+    {
+        return $this->addReference('sys_file_reference', array_merge_recursive($metaData, [
+            'tablenames' => $tableName,
+            'fieldname' => $fieldName,
+        ]), $fileReference->getUid());
+    }
+
     protected function move(int|string $recordUid, array|int|string $destination, string $table = 'tt_content'): void
     {
         $this->commandMap[$table][$recordUid]['move'] = $destination;
