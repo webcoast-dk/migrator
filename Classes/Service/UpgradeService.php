@@ -79,20 +79,21 @@ class UpgradeService implements LoggerAwareInterface
                 $GLOBALS['LANG'] = $this->languageServiceFactory->createFromUserPreferences($GLOBALS['BE_USER']);
             }
 
-            // Update the CType beforehand, because some data handling logic relies on the new CType
-            $this->connection->update(
-                'tt_content',
-                [
-                    'CType' => $dataMap['tt_content'][$record['uid']]['CType'],
-                ],
-                [
-                    'uid' => $record['uid'],
-                ]
-            );
-
             /** @var DataHandler $dataHandler */
             $dataHandler = GeneralUtility::makeInstance(DataHandler::class);
             $dataHandler->bypassWorkspaceRestrictions = true;
+
+            // Update the CType beforehand, because some data handling logic relies on the new CType
+            $dataHandler->start([
+                'tt_content' => [
+                    $record['uid'] => [
+                        'CType' => $dataMap['tt_content'][$record['uid']]['CType'],
+                    ],
+                ]
+            ], []);
+            $dataHandler->process_datamap();
+
+            // Process rest of the content fields
             $dataHandler->start($dataMap, $recordDataMigrator->getCommandMap());
             $dataHandler->process_datamap();
             $dataHandler->process_cmdmap();
