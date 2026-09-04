@@ -2,7 +2,7 @@
     "name": "webcoast/migrator",
     "description": "Migration tool to convert DCE elements to content-blocks",
     "type": "typo3-cms-extension",
-    "title": "DCE to Content Blocks",
+    "title": "Migrator core",
     "authors": [
         {
             "name": "Thorben Nissen",
