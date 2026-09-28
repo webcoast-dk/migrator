@@ -12,15 +12,15 @@ class FieldCollection extends \SplObjectStorage
 {
     public function addField(Field $field): void
     {
-        $this->attach($field);
+        $this->offsetSet($field);
     }
 
-    public function attach(object $object, mixed $info = null): void
+    public function offsetSet(object $object, mixed $info = null): void
     {
         if (!$object instanceof Field) {
             throw new \InvalidArgumentException(sprintf('Expected instance of %s, got %s', Field::class, get_debug_type($object)));
         }
 
-        parent::attach($object, $info);
+        parent::offsetSet($object, $info);
     }
 }
