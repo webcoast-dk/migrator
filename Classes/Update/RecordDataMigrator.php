@@ -64,11 +64,12 @@ abstract class RecordDataMigrator
         ]), $fileReference->getUid());
     }
 
-    protected function moveFileReference(FileReference $fileReference, string $tableName, string $fieldName, array $metaData = [])
+    protected function moveFileReference(FileReference $fileReference, string $tableName, int|string $recordUid, string $fieldName, array $metaData = [])
     {
         return $this->addReference('sys_file_reference', array_merge_recursive($metaData, [
             'tablenames' => $tableName,
             'fieldname' => $fieldName,
+            'uid_foreign' => $recordUid
         ]), $fileReference->getUid());
     }
 
