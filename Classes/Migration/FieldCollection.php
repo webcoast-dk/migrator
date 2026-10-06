@@ -15,7 +15,7 @@ class FieldCollection extends \SplObjectStorage
         $this->offsetSet($field);
     }
 
-    public function offsetSet(object $object, mixed $info = null): void
+    public function offsetSet($object, mixed $info = null): void
     {
         if (!$object instanceof Field) {
             throw new \InvalidArgumentException(sprintf('Expected instance of %s, got %s', Field::class, get_debug_type($object)));
