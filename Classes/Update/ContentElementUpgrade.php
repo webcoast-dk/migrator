@@ -72,10 +72,11 @@ readonly class ContentElementUpgrade implements UpgradeWizardInterface, Repeatab
             ->add(GeneralUtility::makeInstance(DeletedRestriction::class));
 
         $queryBuilder
-            ->count('uid')
-            ->from('tt_content')
+            ->count('c.uid')
+            ->from('tt_content', 'c')
+            ->join('c', 'pages', 'p', 'c.pid = p.uid')
             ->where(
-                $queryBuilder->expr()->in('CType', $queryBuilder->createNamedParameter($this->recordDataMigratorFactory->getSupportedContentTypes(), ArrayParameterType::STRING))
+                $queryBuilder->expr()->in('c.CType', $queryBuilder->createNamedParameter($this->recordDataMigratorFactory->getSupportedContentTypes(), ArrayParameterType::STRING))
             );
 
         return $queryBuilder->executeQuery()->fetchOne() > 0;
