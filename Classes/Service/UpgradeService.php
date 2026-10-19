@@ -7,6 +7,8 @@ namespace WEBcoast\Migrator\Service;
 use Doctrine\DBAL\Result;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\Core\Bootstrap;
 use TYPO3\CMS\Core\Core\Environment;
@@ -38,8 +40,12 @@ class UpgradeService implements LoggerAwareInterface
         $this->connection = $connectionPool->getConnectionForTable('tt_content');
     }
 
-    public function migrateContentElements(Result $result): void
+    public function migrateContentElements(Result $result, OutputInterface $output): void
     {
+        if ($output->getVerbosity() >= OutputInterface::VERBOSITY_VERY_VERBOSE && $output instanceof SymfonyStyle) {
+            $output->progressStart($result->rowCount());
+        }
+
         while ($record = $result->fetchAssociative()) {
             $recordMigratorMapping = $this->recordDataMigratorFactory->getMigratorMapping($record['CType']);
             $provider = $this->contentTypeProviders->getProvider($recordMigratorMapping->getProviderIdentifier());
@@ -101,6 +107,18 @@ class UpgradeService implements LoggerAwareInterface
             if ($recordDataMigrator instanceof NewIdMappingAwareInterface) {
                 $recordDataMigrator->setNewIdMappings($dataHandler->substNEWwithIDs);
             }
+
+            if (count($dataHandler->errorLog) > 0) {
+                throw new \RuntimeException(sprintf('Errors occurred while migrating record with uid %s: %s', $record['uid'], implode(', ', $dataHandler->errorLog)));
+            }
+
+            if ($output->getVerbosity() >= OutputInterface::VERBOSITY_VERY_VERBOSE && $output instanceof SymfonyStyle) {
+                $output->progressAdvance();
+            }
+        }
+
+        if ($output->getVerbosity() >= OutputInterface::VERBOSITY_VERY_VERBOSE && $output instanceof SymfonyStyle) {
+            $output->progressFinish();
         }
     }
 }

@@ -7,18 +7,23 @@ namespace WEBcoast\Migrator\Update;
 
 
 use Doctrine\DBAL\ArrayParameterType;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\Restriction\DeletedRestriction;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Install\Attribute\UpgradeWizard;
+use TYPO3\CMS\Install\Updates\ChattyInterface;
 use TYPO3\CMS\Install\Updates\DatabaseUpdatedPrerequisite;
 use TYPO3\CMS\Install\Updates\RepeatableInterface;
 use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
 use WEBcoast\Migrator\Service\UpgradeService;
 
 #[UpgradeWizard('migrator-content-element-upgrade')]
-readonly class ContentElementUpgrade implements UpgradeWizardInterface, RepeatableInterface
+readonly class ContentElementUpgrade implements UpgradeWizardInterface, RepeatableInterface, ChattyInterface
 {
+    protected OutputInterface $output;
+
     public function __construct(protected RecordDataMigratorFactory $recordDataMigratorFactory, protected UpgradeService $upgradeService) {}
 
     public function getTitle(): string
@@ -57,7 +62,16 @@ readonly class ContentElementUpgrade implements UpgradeWizardInterface, Repeatab
 
             $result = $queryBuilder->executeQuery();
 
-            $this->upgradeService->migrateContentElements($result);
+            if ($result->rowCount() > 0) {
+                if ($this->output->getVerbosity() >= OutputInterface::VERBOSITY_VERY_VERBOSE && $this->output instanceof SymfonyStyle) {
+                    $this->output->section(sprintf('Migrating %d content elements of type %s', $result->rowCount(), $contentType));
+                } elseif ($this->output->getVerbosity() >= OutputInterface::VERBOSITY_VERBOSE) {
+                    $this->output->writeln(sprintf('Migrating %d content elements of type %s', $result->rowCount(), $contentType));
+                }
+
+                $this->upgradeService->migrateContentElements($result, $this->output);
+            }
+
         }
 
         return true;
@@ -85,5 +99,10 @@ readonly class ContentElementUpgrade implements UpgradeWizardInterface, Repeatab
     public function getPrerequisites(): array
     {
         return [DatabaseUpdatedPrerequisite::class];
+    }
+
+    public function setOutput(OutputInterface $output): void
+    {
+        $this->output = $output;
     }
 }
